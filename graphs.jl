@@ -1,5 +1,5 @@
 ### A Pluto.jl notebook ###
-# v0.19.28
+# v0.19.29
 
 using Markdown
 using InteractiveUtils
@@ -45,7 +45,7 @@ Guillaume Dalle (EPFL)
 """
 
 # ╔═╡ b4a156ab-3a55-40ec-9726-856dba595d56
-TwoColumn(ChooseDisplayMode(), present_button())
+present_button()
 
 # ╔═╡ 9470b6c5-ac11-4682-86f4-a5cc766c5231
 md"""
@@ -64,7 +64,7 @@ md"""
 - molecular structures
 - social networks
 """,
-LocalResource(joinpath(imgfolder, "funny", "meme_twitter_graph.jpg"))
+Resource("https://i.imgur.com/LGwNqA1.jpg")
 )
 
 # ╔═╡ 2375cd79-75df-4e54-baf7-424b85b75d99
@@ -206,7 +206,7 @@ md"""
 - [LightGraphs.jl](https://github.com/sbromberger/LightGraphs.jl): the default for a while, now archived
 - [Graphs.jl](https://github.com/JuliaGraphs/Graphs.jl): the current default, actively maintained
 """,
-LocalResource(joinpath(imgfolder, "funny", "meme_lightgraphs.jpg"))
+Resource("https://i.imgur.com/2ETv2DZ.jpg")
 )
 
 # ╔═╡ 27741e2b-b4b6-41ab-9ddb-5e71933fc1da
@@ -387,7 +387,7 @@ md"""
 """
 
 # ╔═╡ d20d13eb-eddb-4744-91bc-5524df4de8f2
-LocalResource(joinpath(imgfolder, "funny", "meme_graph_interface.jpg"))
+Resource("https://i.imgur.com/afI4sp8.jpg")
 
 # ╔═╡ 961a3381-6362-4c62-a07d-4dbcbe563bb2
 md"""
@@ -438,7 +438,7 @@ md"""
 """
 
 # ╔═╡ 6d050e68-86ee-4b09-9113-01c937f3b0cd
-LocalResource(joinpath(imgfolder, "funny", "meme_issues.jpg"))
+Resource("https://i.imgur.com/fUV85nc.jpg")
 
 # ╔═╡ ed56c81d-9ba1-41c8-ae55-54a0b6480b35
 md"""
@@ -452,7 +452,10 @@ md"""
 	- edge and vertex metadata
 	- multiple edges
 
-Will be the foundation of Graphs.jl v2.0
+Will be the foundation of Graphs.jl v2.0:
+
+- breaking in principle
+- but we want most algorithms to keep working
 
 Still very much a work in progress
 """
@@ -466,8 +469,8 @@ md"""
 md"""
 - Join the `#graphs` channel on Slack or Zulip
 - Take part in the new [community calls](https://discourse.julialang.org/t/launching-the-graphs-community-calls/103880)
-- Weigh in on some [issues](https://github.com/JuliaGraphs/Graphs.jl/issues) to help prioritize
-- Review or open pull requests to fix them
+- Weigh in on some GraphsBase.jl design [issues](https://github.com/JuliaGraphs/GraphsBase.jl/issues)
+- Open simple PRs fixing Graphs.jl new feature or bug [issues](https://github.com/JuliaGraphs/Graphs.jl/issues)
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -503,7 +506,7 @@ SimpleWeightedGraphs = "~1.4.0"
 PLUTO_MANIFEST_TOML_CONTENTS = """
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.10.0-beta2"
+julia_version = "1.9.3"
 manifest_format = "2.0"
 project_hash = "379ba91935a7d2890892bc83d4f5301230fa8fa9"
 
@@ -577,7 +580,7 @@ weakdeps = ["Dates", "LinearAlgebra"]
 [[deps.CompilerSupportLibraries_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
-version = "1.0.5+1"
+version = "1.0.5+0"
 
 [[deps.Compose]]
 deps = ["Base64", "Colors", "DataStructures", "Dates", "IterTools", "JSON", "LinearAlgebra", "Measures", "Printf", "Random", "Requires", "Statistics", "UUIDs"]
@@ -789,12 +792,12 @@ version = "1.2.1"
 [[deps.LibCURL]]
 deps = ["LibCURL_jll", "MozillaCACerts_jll"]
 uuid = "b27032c2-a3e7-50c8-80cd-2d36dbcbfd21"
-version = "0.6.4"
+version = "0.6.3"
 
 [[deps.LibCURL_jll]]
 deps = ["Artifacts", "LibSSH2_jll", "Libdl", "MbedTLS_jll", "Zlib_jll", "nghttp2_jll"]
 uuid = "deac9b47-8bc7-5906-a0fe-35ac56dc84c0"
-version = "8.0.1+1"
+version = "7.84.0+0"
 
 [[deps.LibGit2]]
 deps = ["Base64", "NetworkOptions", "Printf", "SHA"]
@@ -803,7 +806,7 @@ uuid = "76f85450-5226-5b5a-8eaa-529ad045b433"
 [[deps.LibSSH2_jll]]
 deps = ["Artifacts", "Libdl", "MbedTLS_jll"]
 uuid = "29816b5a-b9ab-546f-933c-edad1886dfa8"
-version = "1.11.0+1"
+version = "1.10.2+0"
 
 [[deps.Libdl]]
 uuid = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
@@ -857,7 +860,7 @@ version = "1.1.7"
 [[deps.MbedTLS_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "c8ffd9c3-330d-5841-b78e-0817d7145fa1"
-version = "2.28.2+1"
+version = "2.28.2+0"
 
 [[deps.Measures]]
 git-tree-sha1 = "c13304c81eec1ed3af7fc20e75fb6b26092a1102"
@@ -881,7 +884,7 @@ uuid = "a63ad114-7e13-5084-954f-fe012c677804"
 
 [[deps.MozillaCACerts_jll]]
 uuid = "14a3606d-f60d-562e-9121-12d972cd8159"
-version = "2023.1.10"
+version = "2022.10.11"
 
 [[deps.MsgPack]]
 deps = ["Serialization"]
@@ -896,7 +899,7 @@ version = "1.2.0"
 [[deps.OpenBLAS_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "Libdl"]
 uuid = "4536629a-c528-5b80-bd46-f80d51c5b363"
-version = "0.3.23+2"
+version = "0.3.21+4"
 
 [[deps.OpenSSL]]
 deps = ["BitFlags", "Dates", "MozillaCACerts_jll", "OpenSSL_jll", "Sockets"]
@@ -924,7 +927,7 @@ version = "2.7.2"
 [[deps.Pkg]]
 deps = ["Artifacts", "Dates", "Downloads", "FileWatching", "LibGit2", "Libdl", "Logging", "Markdown", "Printf", "REPL", "Random", "SHA", "Serialization", "TOML", "Tar", "UUIDs", "p7zip_jll"]
 uuid = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
-version = "1.10.0"
+version = "1.9.2"
 
 [[deps.Pluto]]
 deps = ["Base64", "Configurations", "Dates", "FileWatching", "FuzzyCompletions", "HTTP", "HypertextLiteral", "InteractiveUtils", "Logging", "LoggingExtras", "MIMEs", "Malt", "Markdown", "MsgPack", "Pkg", "PrecompileSignatures", "PrecompileTools", "REPL", "RegistryInstances", "RelocatableFolders", "Scratch", "Sockets", "TOML", "Tables", "URIs", "UUIDs"]
@@ -986,7 +989,7 @@ deps = ["InteractiveUtils", "Markdown", "Sockets", "Unicode"]
 uuid = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
 
 [[deps.Random]]
-deps = ["SHA"]
+deps = ["SHA", "Serialization"]
 uuid = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
 [[deps.Reexport]]
@@ -1058,7 +1061,6 @@ uuid = "6462fe0b-24de-5631-8697-dd941f90decc"
 [[deps.SparseArrays]]
 deps = ["Libdl", "LinearAlgebra", "Random", "Serialization", "SuiteSparse_jll"]
 uuid = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
-version = "1.10.0"
 
 [[deps.StaticArrays]]
 deps = ["LinearAlgebra", "Random", "StaticArraysCore"]
@@ -1083,7 +1085,7 @@ version = "1.9.0"
 [[deps.SuiteSparse_jll]]
 deps = ["Artifacts", "Libdl", "Pkg", "libblastrampoline_jll"]
 uuid = "bea87d4a-7f5b-5778-9afe-8cc45184846c"
-version = "7.2.0+1"
+version = "5.10.1+6"
 
 [[deps.TOML]]
 deps = ["Dates"]
@@ -1137,22 +1139,22 @@ uuid = "4ec0a83e-493e-50e2-b9ac-8f72acf5a8f5"
 [[deps.Zlib_jll]]
 deps = ["Libdl"]
 uuid = "83775a58-1f1d-513f-b197-d71354ab007a"
-version = "1.2.13+1"
+version = "1.2.13+0"
 
 [[deps.libblastrampoline_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "8e850b90-86db-534c-a0d3-1478176c7d93"
-version = "5.8.0+1"
+version = "5.8.0+0"
 
 [[deps.nghttp2_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "8e850ede-7688-5339-a07c-302acd2aaf8d"
-version = "1.52.0+1"
+version = "1.48.0+0"
 
 [[deps.p7zip_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "3f19e933-33d8-53b3-aaab-bd5110c3b7a0"
-version = "17.4.0+2"
+version = "17.4.0+0"
 """
 
 # ╔═╡ Cell order:
