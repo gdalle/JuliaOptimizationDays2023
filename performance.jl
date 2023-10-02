@@ -25,13 +25,13 @@ TableOfContents()
 md"""
 # Writing fast Julia
 
-_A witty subtitle_
+_It's easy but not obvious_
 
 Guillaume Dalle (EPFL)
 """
 
 # ╔═╡ 74767c9a-4ed8-42cc-b7e2-1c31064f505c
-TwoColumn(ChooseDisplayMode(), present_button())
+present_button()
 
 # ╔═╡ 83d59131-2638-4e28-9daf-cbe8a14116c6
 md"""
@@ -202,7 +202,7 @@ md"""
 md"""
 - Avoid [global variables](https://docs.julialang.org/en/v1/manual/performance-tips/#Avoid-global-variables)
 - Put critical code [inside functions](https://docs.julialang.org/en/v1/manual/performance-tips/#Performance-critical-code-should-be-inside-a-function)
-- If a built-in function exists (like for [linear algebra](https://docs.julialang.org/en/v1/stdlib/LinearAlgebra/)), use it
+- If a built-in function or a good package exists, use it
 - Beware of [closures](https://docs.julialang.org/en/v1/manual/performance-tips/#man-performance-captured) (i.e. functions that return functions)
 """
 
@@ -213,16 +213,10 @@ md"""
 
 # ╔═╡ 2d88e638-d64b-4411-85f6-87d26b10814c
 md"""
-- Define functions that
-  - [do not change the type of variables](https://docs.julialang.org/en/v1/manual/performance-tips/#Avoid-changing-the-type-of-a-variable)
-  - [always output the same type](https://docs.julialang.org/en/v1/manual/performance-tips/#Write-%22type-stable%22-functions)
-- Always declare concrete or parametric types (no abstract types) in
-  - [container initializations](https://docs.julialang.org/en/v1/manual/performance-tips/#man-performance-abstract-container)
-  - [`struct` field values](https://docs.julialang.org/en/v1/manual/performance-tips/#Avoid-fields-with-abstract-type)
-  - [`struct` field containers](https://docs.julialang.org/en/v1/manual/performance-tips/#Avoid-fields-with-abstract-containers)
-- Never write `if typeof(x) == ...`: instead, exploit
-  - [multiple definitions](https://docs.julialang.org/en/v1/manual/performance-tips/#Break-functions-into-multiple-definitions)
-  - [function barriers](https://docs.julialang.org/en/v1/manual/performance-tips/#kernel-functions)
+- Functions should [not change variable types](https://docs.julialang.org/en/v1/manual/performance-tips/#Avoid-changing-the-type-of-a-variable) and [always output the same type](https://docs.julialang.org/en/v1/manual/performance-tips/#Write-%22type-stable%22-functions)
+- No abstract types in [container initializations](https://docs.julialang.org/en/v1/manual/performance-tips/#man-performance-abstract-container), [`struct` fields](https://docs.julialang.org/en/v1/manual/performance-tips/#Avoid-fields-with-abstract-type) and [`struct` field containers](https://docs.julialang.org/en/v1/manual/performance-tips/#Avoid-fields-with-abstract-containers)
+- Leverage [multiple definitions](https://docs.julialang.org/en/v1/manual/performance-tips/#Break-functions-into-multiple-definitions) and [function barriers](https://docs.julialang.org/en/v1/manual/performance-tips/#kernel-functions)
+- [Force specialization](https://docs.julialang.org/en/v1/manual/performance-tips/#Be-aware-of-when-Julia-avoids-specializing) if needed
 """
 
 # ╔═╡ e6b33b6b-569d-4ad4-a1a3-70fe2e8acb9d
@@ -233,15 +227,14 @@ md"""
 # ╔═╡ 81ebe951-6952-4911-9ed1-95de188f4744
 md"""
 - Fix type inference issues first
-- Prefer in-place functions (they name usually [ends with `!`](https://docs.julialang.org/en/v1/manual/style-guide/#bang-convention))
-- [Pre-allocate](https://docs.julialang.org/en/v1/manual/performance-tips/#Pre-allocating-outputs) output memory for those functions
+- Prefer mutating functions ([with a `!`](https://docs.julialang.org/en/v1/manual/style-guide/#bang-convention)) and [pre-allocate](https://docs.julialang.org/en/v1/manual/performance-tips/#Pre-allocating-outputs) outputs
 - Use [views instead of slices](https://docs.julialang.org/en/v1/manual/performance-tips/#man-performance-views) when you don't need copies: `view(A, :, 1)` instead of `A[:, 1]`
-- [Combine vectorized operations](https://docs.julialang.org/en/v1/manual/performance-tips/#More-dots:-Fuse-vectorized-operations)
+- [Fuse vectorized operations](https://docs.julialang.org/en/v1/manual/performance-tips/#More-dots:-Fuse-vectorized-operations)
 """
 
 # ╔═╡ f00b2d65-0a60-464e-9daa-28b8a8fea1f1
 md"""
-## What you don't need to do (usually)
+## What you shouldn't do (usually)
 """
 
 # ╔═╡ ada53d3e-00d8-45eb-8d79-c1cfe08f8832
@@ -317,6 +310,11 @@ Also relevant:
 with_terminal() do
 	@code_warntype gradient_descent(f, ∇f, A, b; iterations=10000)
 end
+
+# ╔═╡ cf9cd2af-c23d-42e7-bc20-6031f746d2be
+md"""
+`@code_warntype` is usually insufficient: live demo of Cthulhu.jl and JET.jl in VSCode
+"""
 
 # ╔═╡ cf4e22d2-8bdf-434e-879a-49c4b04addfb
 md"""
@@ -1732,6 +1730,7 @@ version = "1.4.1+1"
 # ╟─dbb15720-af54-4d12-8f51-414fd58e1bfb
 # ╟─f91e3455-5fa4-46c9-aeaa-12d73638beaf
 # ╠═e529a7c1-fd02-4195-9be5-f1b19e5036e1
+# ╟─cf9cd2af-c23d-42e7-bc20-6031f746d2be
 # ╟─cf4e22d2-8bdf-434e-879a-49c4b04addfb
 # ╟─43229e98-3e34-4039-a5b0-86f98a443d8d
 # ╠═e10d3e53-55f5-43b1-90e2-4387d5580679
