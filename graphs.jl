@@ -29,11 +29,25 @@ begin
 	using PlutoTeachingTools
 end
 
-# ╔═╡ 9f16b4c8-358e-46fe-b07d-10e3990df177
-imgfolder = abspath(joinpath("..", "..", "images"))
-
 # ╔═╡ 22d3b3fc-4c88-40f9-aa9a-583a124d2d50
 TableOfContents(depth=1)
+
+# ╔═╡ c9187a5e-4cb9-476c-9c32-06bb4933c287
+begin
+	struct TwoColumnSplit{L, R}
+	    left::L
+	    right::R
+	end
+	
+	function Base.show(io, mime::MIME"text/html", tc::TwoColumnSplit)
+	    write(io, """<div style="display: flex;"><div style="flex: 45%;">""")
+	    show(io, mime, tc.left)
+		write(io, """</div><div style="flex: 10%;">""")
+	    write(io, """</div><div style="flex: 45%;">""")
+	    show(io, mime, tc.right)
+	    write(io, """</div></div>""")
+	end
+end
 
 # ╔═╡ 00ab89f9-698b-4a55-a5e2-214ae934a6e7
 md"""
@@ -46,6 +60,58 @@ Guillaume Dalle (EPFL)
 
 # ╔═╡ b4a156ab-3a55-40ec-9726-856dba595d56
 present_button()
+
+# ╔═╡ e7456d2f-2351-46ed-a42b-b995ea6859c6
+md"""
+## Getting started
+"""
+
+# ╔═╡ 470e92c2-4b19-4aa5-8466-75258f6db7ae
+TwoColumnSplit(
+	Resource("https://i.imgur.com/iK1PVd5.png"),
+	md"""
+!!! info "Link to this notebook"
+	<https://gdalle.github.io/JuliaOptimizationDays2023/graphs.html>
+
+To launch it:
+```julia$
+using Pkg
+Pkg.add("Pluto")
+using Pluto
+Pluto.run()
+```
+"""
+)
+
+# ╔═╡ 04371f89-10be-4411-9f9c-4c87ca33ba47
+md"""
+## [Who am I](https://gdalle.github.io/)?
+"""
+
+# ╔═╡ 5d6b1637-054c-4e83-b67b-d1727fb743c6
+video = html"""
+<iframe width="300" height="200" src="https://www.youtube.com/embed/1WxsTfiUxxk?si=llPfKi9CI2nermpL" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+	""";
+
+# ╔═╡ c5f6a0a5-d327-41f5-a97e-ef1b080872d9
+TwoColumnWideLeft(
+	md"""
+	**Life story**
+	- PhD on learning & optimization for railways
+	- Postdoc on graph neural networks
+	- Research position on math for transportation
+
+	**Julia contributions**
+	- Graphs ecosystem maintenance
+	- Autodiff ([ImplicitDifferentiation.jl](https://github.com/gdalle/ImplicitDifferentiation.jl), [InferOpt.jl](https://github.com/axelparmentier/InferOpt.jl))
+	- Statistics ([HiddenMarkovModels.jl](https://github.com/gdalle/HiddenMarkovModels.jl))
+	- Teaching ([Modern Julia Workflows](https://modernjuliaworkflows.github.io/))
+	""",
+	md"""
+	$video
+	Also a YouTuber!
+	"""
+)
 
 # ╔═╡ 9470b6c5-ac11-4682-86f4-a5cc766c5231
 md"""
@@ -118,6 +184,14 @@ elseif family == :complete
 	gplot(complete_graph(nb_vertices))
 end
 
+# ╔═╡ 205bc369-a3c8-4d10-8989-c13d672963cf
+md"""
+## Live demo
+"""
+
+# ╔═╡ 6f6333cb-591c-43b4-b3f9-d340e4afd3e0
+# probably will fail
+
 # ╔═╡ 2f10e310-04bf-4259-bae9-efba6935fd91
 md"""
 ## Graph storage
@@ -145,14 +219,20 @@ md"""
 """
 
 # ╔═╡ 91881f4a-fbd2-448c-bdb8-d111ebd66aa9
-md"""
+TwoColumnSplit(
+	md"""
 - Directed vs. undirected
 - Sparse vs. dense
 - What about edge weights?
 - What about other metadata?
+	""",
+	md"""
 - What about self-loops?
 - What about multiple edges?
+- What about edges with 3 vertices?
+- What about infinite graphs?
 """
+)
 
 # ╔═╡ 6cf5962b-4142-458c-b12e-1292a103453b
 md"""
@@ -192,6 +272,8 @@ A [handful of functions](https://juliagraphs.org/Graphs.jl/stable/ecosystem/inte
 # ╔═╡ f6688d6f-54c5-4405-a441-b3c951ab5fe2
 md"""
 # The JuliaGraphs organization
+
+<https://juliagraphs.org/>
 """
 
 # ╔═╡ 2e3502ec-5f53-45c0-a855-a799f2f86fa1
@@ -233,7 +315,7 @@ md"""
 
 # ╔═╡ 42cf6901-07f8-4e8b-9387-cee7fbe37e35
 md"""
-- adjacency matrix
+- adjacency matrix ([almost](https://github.com/JuliaGraphs/SimpleWeightedGraphs.jl/blob/8128430c9f1a5a2f2cd9dd2b89d72916c811b257/src/simpleweighteddigraph.jl#L138C54-L138C54))
 - real edge weights
 """
 
@@ -362,7 +444,7 @@ md"""
 # ╔═╡ 79ca68fc-d60c-4ccb-9aab-819565de92a7
 md"""
 - [Graphs.jl](https://github.com/JuliaGraphs/Graphs.jl): a little bit of everything
-- [GraphsOptim.jl](https://github.com/JuliaGraphs/Graphs.jl): algorithms based on mathematical programming
+- [GraphsOptim.jl](https://github.com/JuliaGraphs/Graphs.jl): classic algorithms based on JuMP.jl (please contribute!)
 """
 
 # ╔═╡ 0738f051-1b85-4329-b8e1-bba68c72f12a
@@ -387,7 +469,7 @@ md"""
 """
 
 # ╔═╡ d20d13eb-eddb-4744-91bc-5524df4de8f2
-Resource("https://i.imgur.com/afI4sp8.jpg")
+Resource("https://i.imgur.com/afI4sp8.jpg", :width => "75%")
 
 # ╔═╡ 961a3381-6362-4c62-a07d-4dbcbe563bb2
 md"""
@@ -446,19 +528,22 @@ md"""
 """
 
 # ╔═╡ 54aa994b-a9fd-4217-8909-847900d1edae
-md"""
+TwoColumnSplit(md"""
 !!! tip "Goal"
 	Rewrite the interface to accommodate
+    - arbitrary vertex types
 	- edge and vertex metadata
-	- multiple edges
-
-Will be the foundation of Graphs.jl v2.0:
+	- multiple edges?
+""",
+	md"""
+Foundation of Graphs.jl v2.0:
 
 - breaking in principle
-- but we want most algorithms to keep working
+- most algorithms must keep working
 
 Still very much a work in progress
 """
+)
 
 # ╔═╡ 5579e8e0-c32e-44a9-860a-b065ab9d7655
 md"""
@@ -469,8 +554,8 @@ md"""
 md"""
 - Join the `#graphs` channel on Slack or Zulip
 - Take part in the new [community calls](https://discourse.julialang.org/t/launching-the-graphs-community-calls/103880)
-- Weigh in on some GraphsBase.jl design [issues](https://github.com/JuliaGraphs/GraphsBase.jl/issues)
-- Open simple PRs fixing Graphs.jl new feature or bug [issues](https://github.com/JuliaGraphs/Graphs.jl/issues)
+- Weigh in on some GraphsBase.jl design [questions](https://github.com/JuliaGraphs/GraphsBase.jl/issues)
+- Open simple PRs fixing Graphs.jl [issues](https://github.com/JuliaGraphs/Graphs.jl/issues)
 """
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
@@ -1159,10 +1244,15 @@ version = "17.4.0+0"
 
 # ╔═╡ Cell order:
 # ╠═c5b86a90-5c8f-11ee-1d60-65cfc67e3948
-# ╠═9f16b4c8-358e-46fe-b07d-10e3990df177
 # ╠═22d3b3fc-4c88-40f9-aa9a-583a124d2d50
+# ╟─c9187a5e-4cb9-476c-9c32-06bb4933c287
 # ╟─00ab89f9-698b-4a55-a5e2-214ae934a6e7
 # ╟─b4a156ab-3a55-40ec-9726-856dba595d56
+# ╟─e7456d2f-2351-46ed-a42b-b995ea6859c6
+# ╟─470e92c2-4b19-4aa5-8466-75258f6db7ae
+# ╟─04371f89-10be-4411-9f9c-4c87ca33ba47
+# ╟─c5f6a0a5-d327-41f5-a97e-ef1b080872d9
+# ╟─5d6b1637-054c-4e83-b67b-d1727fb743c6
 # ╟─9470b6c5-ac11-4682-86f4-a5cc766c5231
 # ╟─b337eab8-18ac-4997-9171-6dd16840eda4
 # ╟─653ceebf-b2b8-4cc8-90b6-5b0e971930d1
@@ -1174,6 +1264,8 @@ version = "17.4.0+0"
 # ╟─bf3459a8-15d8-4aaf-b0c4-f0da62ee6aa9
 # ╟─13ba3456-7f4f-43b1-b7bc-3b146297a7a7
 # ╟─fa19a5eb-a357-43a1-86a7-82ec85125bba
+# ╟─205bc369-a3c8-4d10-8989-c13d672963cf
+# ╠═6f6333cb-591c-43b4-b3f9-d340e4afd3e0
 # ╟─2f10e310-04bf-4259-bae9-efba6935fd91
 # ╟─b8838d3e-210a-456d-989c-bf356dd933bc
 # ╠═42554184-5910-4d99-8dbf-c9bb31e6a60c
